@@ -433,7 +433,10 @@ $.widget( "ui.autocomplete", {
 
 	search: function( value, event ) {
 		value = value != null ? value : this._value();
-
+		
+		//each time we get search results, menu bindings are leaked into memory.
+		this.menu.bindings = $();
+		
 		// Always save the actual value, not the one passed as an argument
 		this.term = this._value();
 
